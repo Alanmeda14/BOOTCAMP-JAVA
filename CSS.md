@@ -29,3 +29,7 @@
 
 - El que pesa mas es el #important, #titulo
 - El que pesa menos es el *
+
+
+## Ejercicio de bordes
+![alt text](/IMG/image-5.png)
