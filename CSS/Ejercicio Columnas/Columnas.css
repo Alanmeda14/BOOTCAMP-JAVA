@@ -1,0 +1,21 @@
+
+html{
+    background-color: beige    ;
+}
+p{
+    column-count: 3;
+    column-gap: 40px;
+    column-rule-style:solid ;
+    column-rule-color: red;
+    column-rule-width: 2px;
+}
+h1:hover{
+    color: red;
+}
+h1{
+    display: inline;
+}
+p::selection{
+    background-color: burlywood;
+    color: yellow;
+}
