@@ -1,17 +1,3 @@
-# CSS
-
-## Ex1
-#### EX1.1
-![alt text](/IMG/image.png)
-#### EX1.2
-![](/IMG/image-2.png)
-#### EX1.3
-![alt text](/IMG/image-3.png)
-#### EX1.4
-![alt text](IMG/image-4.png)
-
-
-
 
 ## Ex4
 
