@@ -1,0 +1,14 @@
+(#titulo) Tiene un peso de (1,0,0)
+
+(#important) Tiene un peso de (1,0,0)
+
+(h1) Tiene un peso de (0,0,1)
+
+(.container href) Tiene un peso de (0,1,1)
+
+(.container) Tiene un peso de (0,1,0)
+
+(*) Tiene un peso de (0,0,0)
+
+El que pesa mas es el #important, #titulo
+El que pesa menos es el *

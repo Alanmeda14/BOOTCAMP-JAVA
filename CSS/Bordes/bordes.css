@@ -1,0 +1,19 @@
+div {
+    width: 400px;
+    height: 250px;
+    padding: 100px 75px;
+    border-width: 5px;
+    border-top-style: dotted;
+    border-top-color: green;
+    border-bottom-color: red;
+    border-bottom-style: solid;
+    border-bottom-width: 10px;
+    border-right-style: dashed;
+    border-right-color: blue;
+    border-right-width: 15px;
+    border-left-width: 15px;
+    border-left-color: black;
+    border-left-style: double;
+    align-content: center;
+    margin: 150px;
+}
