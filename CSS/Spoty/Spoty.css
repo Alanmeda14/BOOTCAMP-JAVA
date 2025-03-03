@@ -1,0 +1,38 @@
+
+@media (max-width: 400px) {
+    .navbar img {
+        width: 150px;
+    }
+    }
+@media (min-width: 401px) and (max-width: 1024px) {
+    .navbar img {
+        width: 150px;
+    }
+    }
+@media (min-width: 1024px) {
+    .navbar {
+        display: flex;
+        justify-content: space-between ;
+
+    }
+    
+    
+    .navbar img {
+        width: 150px;
+        /* Hace que la img tenga 150px y que sea 
+        en bloque para no ocupar todo el espacio */
+    }
+    .menu {
+
+        gap: 20px;
+        padding: 0px 20px;
+        text-align: center;
+        /* Te pone el menu a la derecha con 20px de separacion en cada palabra */
+    }
+    }
+nav a {
+        color: grey; 
+        text-decoration: none;
+        /* Te dice que el texto no tiene decoracion y que le pongas el color 
+        gris a las letras  */
+}
