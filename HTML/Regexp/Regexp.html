@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <label for="Telefono">Numero de telefono:</label>
+        <input id="telefono" type="text" name="telefono" placeholder="Debe tener 9 dígitos" 
+        pattern="\d{9}" maxlength="9" required 
+        oninvalid="this.setCustomValidity('Por favor, introduce exactamente 9 números')"
+        oninput="this.setCustomValidity('')">
+        <span class="error" id="error">El número debe tener exactamente 9 dígitos</span>
+        <br>
+        <button>Enviar</button>
+    </form>
+</body>
+</html>
