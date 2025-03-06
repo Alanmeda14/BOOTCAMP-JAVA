@@ -1,0 +1,80 @@
+.container {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+.circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 2px black;
+    border-radius: 50%;
+}
+.circle-red{
+    background-color: transparent;
+}
+.circle-white{
+    background-color: transparent;
+}
+.circle-1 {
+    height: 400px;
+    width: 400px;
+    background-image: url(img/barça2.jpg);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: auto;
+}
+.circle-2 {
+    height: 350px;
+    width: 350px;
+    position: relative;
+}
+.circle-3 {
+    height: 300px;
+    width: 300px;
+}
+.circle-4 {
+    height: 250px;
+    width: 250px;
+}
+.circle-5 {
+    height: 200px;
+    width: 200px;
+}
+.circle-6 {
+    height: 150px;
+    width: 150px;
+}
+.circle-7 {
+    height: 100px;
+    width: 100px;
+}
+.circle-8 {
+    height: 50px;
+    width: 50px;
+}
+.circle-9 {
+    height: 25px;
+    width: 25px;
+    background-color: rgb(255, 186, 58);
+}
+.palo1 { 
+    width: 100%; 
+    height: 2px; 
+    background-color: black;
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.palo2 {
+    height: 100%; 
+    width: 2px; 
+    background-color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
