@@ -1,0 +1,14 @@
+.par1 {
+    width: 200px;
+    height: 100px;
+    background-color: aquamarine;
+    overflow-y: hidden;
+}
+.par2 {
+    width: 200px;
+    height: 100px;
+    background-color: aquamarine;
+    overflow-y: auto;
+    direction: rtl;
+    /* esto es para que la barra se ponga a la izquierda */
+}

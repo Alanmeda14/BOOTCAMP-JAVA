@@ -1,0 +1,28 @@
+.clase5 {
+    height: 300px;
+    width: 300px;
+    background-color: red;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    color: white;
+    margin: 50px;
+    position: relative;
+}
+.clase1, .clase2, .clase3, .clase4 {
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    border-radius: 50%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    color: white;
+    position: absolute;
+}
+.clase1 { top: -10px; left: -10px; } 
+.clase2 { top: -10px; right: -10px; } 
+.clase3 { bottom: -10px; left: -10px; } 
+.clase4 { bottom: -10px; right: -10px; }

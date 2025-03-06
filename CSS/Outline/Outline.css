@@ -1,0 +1,12 @@
+p {
+    height: 100px;
+    width: 100px;
+    background-color: red;
+    outline: 10px dotted green;
+    cursor: pointer;
+    transition: background-color 0.3s ease, outline 0.3s ease;
+}
+p:focus, p:active {
+    outline: 2px dotted blue;
+    background-color: white;
+}
