@@ -31,3 +31,17 @@ function name(nombre, apellido1, apellido2) {
 
 name("Alan", "Meda", "Amigo");
 
+const num1 = 10;
+const num2 = 8;
+const num3 = 6;
+
+function numeroMasGrande(num1, num2, num3) {
+    if (num1 > num2 && num1 > num3) {
+        return num1;
+    } 
+}
+
+console.log(numeroMasGrande(num1, num2, num3));
+
+
+
