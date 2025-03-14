@@ -4,7 +4,15 @@ const nombreyapellidos =() => {
 };
 console.log(nombreyapellidos())
 
-const apellido =() => {
-    let boolean ="true"
+function nombre(valor) {
+    console.log("Mi nombre es", valor);
 }
-console.log(apellido())
+nombre("Alan");
+
+function numeros(...valor) {
+    valor.forEach(element => {
+        console.log(element)
+    });
+};
+numeros("1","2","3","4","5");
+
