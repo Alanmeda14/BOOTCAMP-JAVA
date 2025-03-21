@@ -53,17 +53,17 @@ const removeElement = () => {
 
 botonpush.addEventListener("click", pushElement)
 botonunshift.addEventListener("click", unshiftElement)
-botoninsert.addEventListener("click", () => {
-    const index = parseInt(numero.value, 10); // Obtiene el número ingresado en el input
+botoninsert.addEventListener("click", () => { 
+    const index = parseInt(imputinsert.value, 10); 
     (index >= 0 && index <= array.length) ?
-        insertElement(index) // Llama a la función con el índice ingresado
+        insertElement(index -1) // Llama a la función con el índice ingresado
         :
         alert("Introduce un número válido dentro del rango del array.");
 });
 botonpop.addEventListener("click", popElement)
 botonshift.addEventListener("click", shiftElement)
 botonremove.addEventListener("click", () => {
-    const index = parseInt(numero.value, 10); // Obtiene el número ingresado en el input
+    const index = parseInt(imputremove, 10); // Obtiene el número ingresado en el input
     if (index >= 0 && index < array.length) {
         array.splice(index, 1); // Elimina el elemento en la posición especificada
         outputArray(); // Actualiza la visualización del array
@@ -71,7 +71,3 @@ botonremove.addEventListener("click", () => {
         alert("Introduce un número válido dentro del rango del array.");
     }
 });
-
-
-
-
