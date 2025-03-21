@@ -1,0 +1,74 @@
+/* Estilos generales del body */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    flex-direction: column;
+}
+
+/* Estilos del encabezado */
+#botonArray {
+    text-align: center;
+    font-family: 'Poppins', sans-serif; /* Fuente moderna */
+    font-size: 48px; /* Tamaño de fuente grande */
+    color: #fff; /* Color blanco para el texto */
+    background: #4e8ed1; /* Fondo color moderno */
+    padding: 20px 40px;
+    margin-bottom: 30px;
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 3px; /* Espaciado entre letras */
+    font-weight: bold; /* Texto en negrita */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Efecto hover */
+#botonArray:hover {
+    transform: scale(1.05); /* Aumenta el tamaño al pasar el ratón */
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2); /* Sombra más grande */
+    background: #3b7bbf; /* Fondo más oscuro en hover */
+}
+
+/* Estilos del contenedor del botón */
+div {
+    width: 300px;
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+}
+
+/* Estilos para los botones "Add" y "Remove" */
+.add, .remove {
+    display: inline-block;
+    border: 2px solid black;
+    padding: 10px 20px; /* Ajusté el padding */
+    text-align: center;
+    position: relative;
+}
+
+/* Pseudo-elemento para el texto "Add item" sobre la línea del borde */
+.add::before, .remove::before {
+    position: absolute;
+    top: -10px; /* Posiciona el texto encima del borde */
+    left: 50%; /* Centra el texto */
+    transform: translateX(-50%); /* Ajusta el texto para centrarlo */
+    background-color: white; /* Fondo blanco para "romper" la línea del borde */
+    padding: 0 5px; /* Espacio alrededor del texto */
+    font-weight: bold; /* Resalta el texto */
+}
+
+/* Texto específico para "Add item" y "Remove item" */
+.add::before {
+    content: "Add item";
+}
+
+.remove::before {
+    content: "Remove item";
+}
