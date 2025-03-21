@@ -1,0 +1,100 @@
+/* body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center; 
+    flex-direction: column;
+}
+
+h1 {
+    background-color: aquamarine;
+    width: 80%; 
+    text-align: center; 
+    padding: 20px;
+    box-sizing: border-box;
+} */
+
+/* Estilos generales del cuerpo */
+/* Estilos generales del cuerpo */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Contenedor principal */
+.container {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 300px;
+}
+
+/* Estilo del título */
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Contador */
+.counters {
+    margin-bottom: 20px;
+}
+
+/* Botones de opción */
+.buttons {
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 200px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Botón Play */
+#botonplay {
+    background-color: #007bff;
+    font-size: 24px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+#botonplay:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo del resultado */
+#resultado {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+

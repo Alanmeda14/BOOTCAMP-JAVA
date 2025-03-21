@@ -21,37 +21,30 @@ const resetArray = () => {
     array = [...initialArray]; // Restaura el array inicial
     outputArray();
 };
-
 const pushElement = () => {
     array.push(randomEmoji());
     outputArray();
 };
-
 const unshiftElement = () => {
     array.unshift(randomEmoji());
     outputArray();
 };
-
 const popElement = () => {
     array.pop();
     outputArray();
 };
-
 const shiftElement = () => {
     array.shift();
     outputArray();
 };
-
 const insertElement = (index) => {
     array.splice(index, 0, randomEmoji());
     outputArray();
 };
-
 const removeElement = (index) => {
     array.splice(index, 1);
     outputArray();
 };
-
 botonArray.addEventListener("click", resetArray);
 botonpush.addEventListener("click", pushElement);
 botonunshift.addEventListener("click", unshiftElement);
