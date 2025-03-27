@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+}
+
+.cartas{
+    display: flex;
+    justify-content: center; 
+    align-items: center;      
+    height: 100vh;  
+    gap: 20px;          
+}
+
+.carta1 {
+    width: 500px;
+    height: 700px;
+    background-image: url(img/por\ delante.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.carta2 {
+    width: 500px;
+    height: 700px;
+    background-image: url(img/por\ delante.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.carta1:hover {
+    background-image: url(img/por\ detras.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.carta2:hover {
+    background-image: url(img/por\ detras.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
