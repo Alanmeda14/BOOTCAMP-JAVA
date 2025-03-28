@@ -1,0 +1,12 @@
+@import "../cosasraras/node_modules/bootstrap/scss/bootstrap.scss";
+
+@include media-breakpoint-down(md){
+    .container-fluid{
+        background-color: violet;
+    }
+}
+@include media-breakpoint-up(md){
+    .container-fluid{
+        background-color: green;
+    }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "bootcamp-java",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alanmeda14/BOOTCAMP-JAVA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alanmeda14/BOOTCAMP-JAVA/issues"
+  },
+  "homepage": "https://github.com/Alanmeda14/BOOTCAMP-JAVA#readme",
+  "description": "",
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  }
+}

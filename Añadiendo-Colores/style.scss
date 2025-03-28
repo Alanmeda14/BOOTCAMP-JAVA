@@ -1,0 +1,24 @@
+// Definir un nuevo color
+$custom-theme-colors: (
+	"alan": #33ff55,
+	// Cambia este color al que quieras
+);
+
+// Importar Bootstrap y fusionar colores personalizados
+@import "../cosasraras/node_modules/bootstrap/scss/functions";
+@import "../cosasraras/node_modules/bootstrap/scss/variables";
+@import "../cosasraras/node_modules/bootstrap/scss/maps";
+@import "../cosasraras/node_modules/bootstrap/scss/mixins";
+
+// Fusionar con los colores de Bootstrap
+$theme-colors: map-merge($theme-colors, $custom-theme-colors);
+
+@import "../cosasraras/node_modules/bootstrap/scss/bootstrap"; // Importa Bootstrap después de definir los colores
+
+:root {
+	--bs-alan: #{map-get($theme-colors, "alan")};
+}
+
+.bg-alan {
+	background-color: var(--bs-alan) !important;
+}
