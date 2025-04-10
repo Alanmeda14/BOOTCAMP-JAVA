@@ -1,13 +1,12 @@
-#letras {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+@import "tailwindcss";
+
+/* #letras {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .fila {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-.cuadrado {
-
-}
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+} */

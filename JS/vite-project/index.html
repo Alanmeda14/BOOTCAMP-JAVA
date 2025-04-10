@@ -4,16 +4,30 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Palabra del dia</title>
+    <title>Palabra del Día</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <div id="app">
-      <h1>La Palabra del Dia</h1>
-      <div id="letras" style="display: flex; gap: 10px; margin-top: 20px;"></div>
-      <input id="entrada" maxlength="5" placeholder="Escribe tu palabra">
-      <button id="comprobar">Comprobar</button>
-      <p id="Resultado"></p>
+  <body class="bg-gray-100">
+    <div id="app" class="text-center p-4">
+      <h1 class="text-3xl font-bold mb-4">La Palabra del Día</h1>
+
+      <div id="letras" class="flex flex-col gap-2 mb-4"></div>
+
+      <input id="entrada" maxlength="5" placeholder="Escribe tu palabra" class="mt-4 p-2 border border-gray-400 rounded w-40 text-center">
+
+      <button id="comprobar" class="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-400">Comprobar</button>
+
+      <p id="resultado" class="mt-2 text-red-500"></p>
+
+      <div id="teclado" class="mt-4 flex flex-col gap-2 max-w-2xl mx-auto">
+        <div id="fila1" class="grid grid-cols-10 gap-2"></div>
+        <div id="fila2" class="grid grid-cols-10 gap-2"></div>
+        <div id="fila3" class="grid grid-cols-10 gap-2"></div>
+      </div>
     </div>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
+
+
