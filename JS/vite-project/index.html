@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Palabra del Día</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-gray-100">
-    <div id="app" class="text-center p-4">
-      <h1 class="text-3xl font-bold mb-4">La Palabra del Día</h1>
+  <body class="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 text-gray-900">
+    <div id="app" class="text-center p-2">
+      <h1 class="text-3xl font-bold mb-2">La Palabra del Día</h1>
       
       <!-- Fila para la palabra del día -->
       <div id="palabradia" class="flex gap-2 justify-center mb-2">
@@ -20,7 +21,7 @@
         <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white">?</div>
       </div>
       
-      <div id="oportunidades" class="flex flex-col gap-2 items-center mb-4">
+      <div id="oportunidades" class="flex flex-col gap-1 items-center mb-2">
         <div id="oportunid1" class="flex gap-2">
           <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white"></div>
           <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white"></div>
@@ -65,24 +66,28 @@
         </div>
       </div>
 
-      <input id="entrada" maxlength="5" placeholder="Escribe tu palabra" class="mt-2 p-2 border border-gray-400 rounded w-40 text-center">
+      <input id="entrada" maxlength="5" placeholder="Escribe tu palabra" class="mt-1 p-1 border border-gray-400 rounded w-40 text-center">
 
-      <div class="flex gap-2 justify-center mt-2">
+      <div class="flex gap-2 justify-center mt-1">
         <button id="comprobar" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-400">Comprobar</button>
         <button id="reiniciar" class="p-2 bg-green-500 text-white rounded hover:bg-green-400">Nueva Palabra</button>
+        <button id="modo-tema" class="p-2 bg-gray-500 text-white rounded hover:bg-gray-400 mt-2">Modo Oscuro</button>
       </div>
 
-      <p id="resultado" class="mt-2 text-red-500 h-6"></p>
 
-      <div id="teclado" class="mt-4 flex flex-col gap-2 max-w-2xl mx-auto">
-        <div id="fila1" class="grid grid-cols-10 gap-2"></div>
-        <div id="fila2" class="grid grid-cols-10 gap-2"></div>
-        <div id="fila3" class="grid grid-cols-10 gap-2"></div>
-      </div>
-    </div>
+
+
+      
+        <p id="resultado" class="mt-1 text-red-500 h-6"></p>
+      
+        <div id="teclado" class="mt-0.5 flex flex-col gap-1 max-w-2xl mx-auto">
+          <div id="fila1" class="grid grid-cols-10 gap-1"></div>
+          <div id="fila2" class="grid grid-cols-10 gap-1"></div>
+          <div id="fila3" class="grid grid-cols-10 gap-1"></div>
+        </div>
+      
+      </body>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
-
-
