@@ -1,16 +1,63 @@
 const input = document.getElementById("entrada") as HTMLInputElement;
 const button = document.getElementById("comprobar")!;
-const letrasDiv = document.getElementById("letras")!;
 const resultado = document.getElementById("resultado")!;
 const fila1 = document.getElementById("fila1")!;
 const fila2 = document.getElementById("fila2")!;
 const fila3 = document.getElementById("fila3")!;
+const reiniciarBtn = document.getElementById("reiniciar")!;
 
 let intentos = 0;
-
+let palabraDelDia = "";
+// son la lista de palabras que genera aleatoriamente el juego
+const palabras = [
+  "NARIZ", "LIMON", "FUEGO", "GATOS", "RELOJ", "NIEVE", "CABLE", "PASTA", "VIUDO", "BESOS",
+  "HOJAS", "TIENE", "JUEGO", "PERRO", "RATON", "PLAZA", "SILLA", "TIGRE", "NUBES", "FELIZ",
+  "VIAJE", "LARGO", "DULCE", "SUELO", "MONTA", "NARDO", "JOVEN", "MUNDO", "NUBES", "PIEZA",
+  "ROJOS", "GRANO", "LENTO", "RAPTO", "CIELO", "ARBOL", "PLUMA", "PARED", "AGUAS", "CERCA",
+  "FRESA", "NORTE", "SURCO", "SALTO", "TAREA", "CAMPO", "BOLSA", "CANTO", "BAJAR", "METRO",
+  "BOTAS", "LUCES", "RIEGO", "JIRON", "TECHO", "BAJOS", "SUEÑO", "RUEDA", "RISAS", "TARTA",
+  "MORRO", "VISTA", "NADAR", "SALSA", "PIANO", "ROMPE", "CAJON", "HELIO", "LLAVE", "EXITO",
+  "CRUDO", "NEGRO", "MALOS", "VIVIR", "GORDO", "PAISA", "JUNTO", "VENTA", "BOLSO", "PLATO",
+  "TEXTO", "CAMAS", "PESAR", "TRONO", "TUNEL", "MARCO", "GOLPE", "HUEVO", "DUROS", "NUBES",
+  "HORNO", "CARTA", "LUNAR", "SOLAR", "CANTO", "ROCAS", "VIEJO", "MALTA", "SOMOS", "RIEGA",
+];
+// esto lo que hace es hacer las tres filas que tiene el tecaldo virtual 
 const tecladoFila1 = "QWERTYUIOP".split("");
 const tecladoFila2 = "ASDFGHJKLÑ".split("");
 const tecladoFila3 = "ZXCVBNM".split("");
+
+// simplemente escoge una palabra aleatoria 
+function seleccionarPalabraAleatoria() {
+  const indice = Math.floor(Math.random() * palabras.length);
+  return palabras[indice];
+}
+
+// Inicializar palabra del día
+function inicializarJuego() {
+  palabraDelDia = seleccionarPalabraAleatoria();
+  intentos = 0;
+  input.value = "";
+  resultado.textContent = "";
+  
+  // Limpiar todos los cuadrados
+  for (let i = 1; i <= 6; i++) {
+    const fila = document.getElementById(`oportunid${i}`)!;
+    const cuadrados = fila.children;
+    for (let j = 0; j < cuadrados.length; j++) {
+      const cuadrado = cuadrados[j] as HTMLElement;
+      cuadrado.textContent = "";
+      cuadrado.className = "w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white";
+    }
+  }
+
+  // Mostrar interrogantes en la palabra del día
+  const filaPalabraDia = document.getElementById("palabradia")!;
+  const cuadrados = filaPalabraDia.children;
+  for (let i = 0; i < cuadrados.length; i++) {
+    const cuadrado = cuadrados[i] as HTMLElement;
+    cuadrado.textContent = "?";
+  }
+}
 
 // Función para agregar letra al input cuando se presiona una tecla
 function handleTeclaClick(tecla: string) {
@@ -38,26 +85,62 @@ button.addEventListener("click", () => {
     return;
   }
 
-  const fila = document.createElement("div");
-  fila.classList.add("flex", "gap-2", "mb-2", "justify-center");
+  const filaActual = document.getElementById(`oportunid${intentos + 1}`)!;
+  const cuadrados = filaActual.children;
 
-  // Crear los cuadrados con las letras
-  for (const letra of palabra) {
-    const cuadrado = document.createElement("div");
-    cuadrado.classList.add("w-12", "h-12", "flex", "items-center", "justify-center", "border-2", "border-gray-400", "text-2xl", "font-bold", "bg-white");
-    cuadrado.textContent = letra;
-    fila.appendChild(cuadrado);
+  // Comprobar cada letra y asignar colores
+  for (let i = 0; i < palabra.length; i++) {
+    const cuadrado = cuadrados[i] as HTMLElement;
+    cuadrado.textContent = palabra[i];
+    
+    if (palabra[i] === palabraDelDia[i]) {
+      // Verde si la letra está en la posición correcta
+      cuadrado.classList.remove("bg-white");
+      cuadrado.classList.add("bg-green-500", "text-white");
+    } else if (palabraDelDia.includes(palabra[i])) {
+      // Amarillo si la letra está en la palabra pero en otra posición
+      cuadrado.classList.remove("bg-white");
+      cuadrado.classList.add("bg-yellow-500", "text-white");
+    } else {
+      // Gris si la letra no está en la palabra
+      cuadrado.classList.remove("bg-white");
+      cuadrado.classList.add("bg-gray-400", "text-white");
+    }
   }
-  letrasDiv.appendChild(fila);
+
+  if (palabra === palabraDelDia) {
+    resultado.textContent = "¡Felicidades! Has adivinado la palabra.";
+    resultado.classList.remove("text-red-500");
+    resultado.classList.add("text-green-500");
+    // Mostrar la palabra del día
+    const filaPalabraDia = document.getElementById("palabradia")!;
+    const cuadradosPalabraDia = filaPalabraDia.children;
+    for (let i = 0; i < palabraDelDia.length; i++) {
+      cuadradosPalabraDia[i].textContent = palabraDelDia[i];
+    }
+  }
   intentos++;
   input.value = ""; // Limpiar el input después de cada intento
+
+  if (intentos === 6 && palabra !== palabraDelDia) {
+    resultado.textContent = `Agotaste tus intentos. La palabra era: ${palabraDelDia}`;
+    // Mostrar la palabra del día
+    const filaPalabraDia = document.getElementById("palabradia")!;
+    const cuadradosPalabraDia = filaPalabraDia.children;
+    for (let i = 0; i < palabraDelDia.length; i++) {
+      cuadradosPalabraDia[i].textContent = palabraDelDia[i];
+    }
+  }
 });
+
+// Reiniciar juego
+reiniciarBtn.addEventListener("click", inicializarJuego);
 
 // Crear las teclas del teclado virtual por filas
 function crearTecla(letra: string) {
   const tecla = document.createElement("button");
   tecla.textContent = letra;
-  tecla.classList.add("p-2", "bg-gray-300", "rounded", "hover:bg-gray-400", "text-lg", "font-semibold");
+  tecla.classList.add("p-1", "bg-gray-300", "rounded", "hover:bg-gray-400", "text-base", "font-semibold", "w-full", "h-8");
   tecla.addEventListener("click", () => handleTeclaClick(letra));
   return tecla;
 }
@@ -80,7 +163,7 @@ tecladoFila3.forEach(letra => {
 // Agregar botón de borrar
 const deleteBtn = document.createElement("button");
 deleteBtn.textContent = "⌫";
-deleteBtn.classList.add("p-2", "bg-red-300", "rounded", "hover:bg-red-400", "text-lg", "font-semibold");
+deleteBtn.classList.add("p-1", "bg-red-300", "rounded", "hover:bg-red-400", "text-base", "font-semibold", "w-full", "h-8");
 deleteBtn.addEventListener("click", handleDelete);
 fila3.appendChild(deleteBtn);
 
@@ -109,3 +192,5 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+// Inicializar el juego al cargar
+inicializarJuego();
