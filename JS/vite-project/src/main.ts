@@ -19,13 +19,16 @@ const tecladoFila1 = "QWERTYUIOP".split("");
 const tecladoFila2 = "ASDFGHJKLÑ".split("");
 const tecladoFila3 = "ZXCVBNM".split("");
 
-// Función para cambiar entre modo claro y oscuro
+// Función para contar ocurrencias de una letra en una palabra
+function contarOcurrencias(palabra: string, letra: string): number {
+  return palabra.split('').filter(l => l === letra).length;
+}
+
 function cambiarModo() {
   const body = document.body;
   const cuadrados = document.querySelectorAll(".w-12");
 
   if (body.classList.contains("from-blue-50")) {
-    // Cambiar a modo oscuro
     body.classList.remove("from-blue-50", "via-white", "to-green-50", "text-gray-900");
     body.classList.add("bg-gray-900", "text-white");
     modoTemaBtn.textContent = "Modo Claro";
@@ -33,13 +36,13 @@ function cambiarModo() {
     cuadrados.forEach((cuadrado) => {
       if (!(cuadrado as HTMLElement).classList.contains("bg-green-500") && 
           !(cuadrado as HTMLElement).classList.contains("bg-yellow-500") && 
-          !(cuadrado as HTMLElement).classList.contains("bg-gray-400")) {
+          !(cuadrado as HTMLElement).classList.contains("bg-gray-400") &&
+          !(cuadrado as HTMLElement).classList.contains("bg-blue-500")) {
         cuadrado.classList.remove("bg-white");
         cuadrado.classList.add("bg-gray-800");
       }
     });
   } else {
-    // Cambiar a modo claro
     body.classList.remove("bg-gray-900", "text-white");
     body.classList.add("from-blue-50", "via-white", "to-green-50", "text-gray-900");
     modoTemaBtn.textContent = "Modo Oscuro";
@@ -47,7 +50,8 @@ function cambiarModo() {
     cuadrados.forEach((cuadrado) => {
       if (!(cuadrado as HTMLElement).classList.contains("bg-green-500") && 
           !(cuadrado as HTMLElement).classList.contains("bg-yellow-500") && 
-          !(cuadrado as HTMLElement).classList.contains("bg-gray-400")) {
+          !(cuadrado as HTMLElement).classList.contains("bg-gray-400") &&
+          !(cuadrado as HTMLElement).classList.contains("bg-blue-500")) {
         cuadrado.classList.remove("bg-gray-800");
         cuadrado.classList.add("bg-white");
       }
@@ -55,13 +59,11 @@ function cambiarModo() {
   }
 }
 
-// Función para seleccionar una palabra aleatoria
-function seleccionarPalabraAleatoria() {
+function seleccionarPalabraAleatoria(): string {
   const indice = Math.floor(Math.random() * palabras.length);
   return palabras[indice];
 }
 
-// Inicializar palabra del día
 function inicializarJuego() {
   palabraDelDia = seleccionarPalabraAleatoria();
   intentos = 0;
@@ -69,7 +71,6 @@ function inicializarJuego() {
   resultado.textContent = "";
   letrasUsadas = {};
   
-  // Limpiar todos los cuadrados
   for (let i = 1; i <= 6; i++) {
     const fila = document.getElementById(`oportunid${i}`)!;
     const cuadrados = fila.children;
@@ -80,7 +81,6 @@ function inicializarJuego() {
     }
   }
 
-  // Mostrar interrogantes en la palabra del día
   const filaPalabraDia = document.getElementById("palabradia")!;
   const cuadrados = filaPalabraDia.children;
   for (let i = 0; i < cuadrados.length; i++) {
@@ -91,25 +91,22 @@ function inicializarJuego() {
   actualizarTecladoVirtual();
 }
 
-// Función para agregar letra al input cuando se presiona una tecla
 function handleTeclaClick(tecla: string) {
   if (input.value.length < 5) {
     input.value += tecla;
   }
 }
 
-// Función para borrar la última letra
 function handleDelete() {
   input.value = input.value.slice(0, -1);
 }
 
-// Crear las teclas del teclado virtual
 function actualizarTecladoVirtual() {
   fila1.innerHTML = "";
   fila2.innerHTML = "";
   fila3.innerHTML = "";
 
-  function crearTecla(letra: string) {
+  function crearTecla(letra: string): HTMLButtonElement {
     const tecla = document.createElement("button");
     tecla.textContent = letra;
     tecla.className = "p-1 bg-gray-200 rounded hover:bg-gray-300 text-base font-semibold w-full h-8 text-black";
@@ -137,7 +134,6 @@ function actualizarTecladoVirtual() {
   fila3.appendChild(espacioFinal);
 }
 
-// Comprobar palabra
 button.addEventListener("click", () => {
   const palabra = input.value.trim().toUpperCase();
 
@@ -153,21 +149,44 @@ button.addEventListener("click", () => {
 
   const filaActual = document.getElementById(`oportunid${intentos + 1}`)!;
   const cuadrados = filaActual.children;
+  const letrasEncontradas: Record<string, number> = {};
 
-  // Comprobar cada letra y asignar colores
+  // Primera pasada: marcar las letras correctas (verdes)
+  for (let i = 0; i < palabra.length; i++) {
+    const letra = palabra[i];
+    if (letra === palabraDelDia[i]) {
+      letrasEncontradas[letra] = (letrasEncontradas[letra] || 0) + 1;
+    }
+  }
+
+  // Segunda pasada: marcar el resto de letras
   for (let i = 0; i < palabra.length; i++) {
     const cuadrado = cuadrados[i] as HTMLElement;
-    cuadrado.textContent = palabra[i];
-    
-    if (palabra[i] === palabraDelDia[i]) {
+    const letra = palabra[i];
+    cuadrado.textContent = letra;
+
+    if (letra === palabraDelDia[i]) {
       cuadrado.classList.remove("bg-white", "bg-gray-800");
       cuadrado.classList.add("bg-green-500", "text-white");
-    } else if (palabraDelDia.includes(palabra[i])) {
-      cuadrado.classList.remove("bg-white", "bg-gray-800");
-      cuadrado.classList.add("bg-yellow-500", "text-white");
     } else {
-      cuadrado.classList.remove("bg-white", "bg-gray-800");
-      cuadrado.classList.add("bg-gray-400", "text-white");
+      const ocurrenciasEnPalabraDelDia = contarOcurrencias(palabraDelDia, letra);
+      const ocurrenciasEncontradas = letrasEncontradas[letra] || 0;
+
+      if (palabraDelDia.includes(letra)) {
+        if (ocurrenciasEnPalabraDelDia > 1) {
+          cuadrado.classList.remove("bg-white", "bg-gray-800");
+          cuadrado.classList.add("bg-blue-500", "text-white"); // Azul para letras duplicadas
+        } else if (ocurrenciasEncontradas < ocurrenciasEnPalabraDelDia) {
+          cuadrado.classList.remove("bg-white", "bg-gray-800");
+          cuadrado.classList.add("bg-yellow-500", "text-white");
+        } else {
+          cuadrado.classList.remove("bg-white", "bg-gray-800");
+          cuadrado.classList.add("bg-gray-400", "text-white");
+        }
+      } else {
+        cuadrado.classList.remove("bg-white", "bg-gray-800");
+        cuadrado.classList.add("bg-gray-400", "text-white");
+      }
     }
   }
 
@@ -175,29 +194,26 @@ button.addEventListener("click", () => {
     resultado.textContent = "¡Felicidades! Has adivinado la palabra.";
     resultado.classList.remove("text-red-500");
     resultado.classList.add("text-green-500");
-    // Mostrar la palabra del día
-    const filaPalabraDia = document.getElementById("palabradia")!;
-    const cuadradosPalabraDia = filaPalabraDia.children;
-    for (let i = 0; i < palabraDelDia.length; i++) {
-      cuadradosPalabraDia[i].textContent = palabraDelDia[i];
-    }
+    mostrarPalabraDelDia();
   }
 
   intentos++;
-  input.value = ""; // Limpiar el input después de cada intento
+  input.value = "";
 
   if (intentos === 6 && palabra !== palabraDelDia) {
     resultado.textContent = `Agotaste tus intentos. La palabra era: ${palabraDelDia}`;
-    // Mostrar la palabra del día
-    const filaPalabraDia = document.getElementById("palabradia")!;
-    const cuadradosPalabraDia = filaPalabraDia.children;
-    for (let i = 0; i < palabraDelDia.length; i++) {
-      cuadradosPalabraDia[i].textContent = palabraDelDia[i];
-    }
+    mostrarPalabraDelDia();
   }
 });
 
-// Escuchar el teclado físico
+function mostrarPalabraDelDia() {
+  const filaPalabraDia = document.getElementById("palabradia")!;
+  const cuadrados = filaPalabraDia.children;
+  for (let i = 0; i < palabraDelDia.length; i++) {
+    cuadrados[i].textContent = palabraDelDia[i];
+  }
+}
+
 input.addEventListener("input", (event) => {
   const inputElement = event.target as HTMLInputElement;
   inputElement.value = inputElement.value.toUpperCase();
@@ -207,11 +223,11 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     button.click();
   } else if (event.key === "Backspace") {
+    event.preventDefault(); // Prevenir el comportamiento por defecto
     handleDelete();
   }
 });
 
-// Inicializar el juego y eventos
 inicializarJuego();
 modoTemaBtn.addEventListener("click", cambiarModo);
 reiniciarBtn.addEventListener("click", inicializarJuego);
