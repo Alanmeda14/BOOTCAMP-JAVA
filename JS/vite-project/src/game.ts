@@ -20,16 +20,17 @@ let palabraDelDia = "";
 let letrasUsadas: Record<string, string> = {};
 
 const palabras = [
-  "COLLA", "MANGO", "TENER", "SUAVE", "LLAVE", "GRITO", "CAMPO", "LUCIR", "PLANO", "NUBES",
-  "COSTA", "BOLSA", "CIELO", "RUEDA", "BANDA", "MAREA", "JUEGO", "RAMAS", "SALIR", "DULCE",
-  "BARRO", "TAZAS", "COPAS", "CRUDO", "LUNAR", "PEINE", "GATOS", "JAULA", "TAPAR", "SABER",
-  "HONGO", "VELAS", "RATON", "NORTE", "CANTO", "SOLAR", "RIEGO", "CURVA", "TIBIO", "PULSO",
-  "MENTA", "LOCHA", "VISTA", "SACAR", "RODEO", "HORNO", "FUEGO", "ALMAS", "SUELO", "LIGAR",
-  "MONTE", "BOLSO", "PLUMA", "REINA", "LIMON", "TENIS", "PANAL", "CLARO", "FRUTA", "DUROS",
-  "NIDOS", "PISOS", "SABIO", "TOCAR", "BOLAS", "TOMAR", "TOROS", "SELVA", "SALSA", "CORAL",
-  "TARTA", "ALGAS", "COPIA", "SALTO", "BOTAS", "LUZCA", "PODAR", "RUMOR", "CALOR", "TUNEL",
-  "MOLDE", "PONER", "GOLPE", "CAJAS", "BURRO", "DADOS", "JALAR", "CASAS", "HUMOR", "CEDRO",
-  "CARGO", "NACER", "GRUES", "ROJAS", "SARTA", "MOVER", "REZAR", "BURLA", "BRISA", "NUBES" 
+  // "COLLA", "MANGO", "TENER", "SUAVE", "LLAVE", "GRITO", "CAMPO", "LUCIR", "PLANO", "NUBES",
+  // "COSTA", "BOLSA", "CIELO", "RUEDA", "BANDA", "MAREA", "JUEGO", "RAMAS", "SALIR", "DULCE",
+  // "BARRO", "TAZAS", "COPAS", "CRUDO", "LUNAR", "PEINE", "GATOS", "JAULA", "TAPAR", "SABER",
+  // "HONGO", "VELAS", "RATON", "NORTE", "CANTO", "SOLAR", "RIEGO", "CURVA", "TIBIO", "PULSO",
+  // "MENTA", "LOCHA", "VISTA", "SACAR", "RODEO", "HORNO", "FUEGO", "ALMAS", "SUELO", "LIGAR",
+  // "MONTE", "BOLSO", "PLUMA", "REINA", "LIMON", "TENIS", "PANAL", "CLARO", "FRUTA", "DUROS",
+  // "NIDOS", "PISOS", "SABIO", "TOCAR", "BOLAS", "TOMAR", "TOROS", "SELVA", "SALSA", "CORAL",
+  // "TARTA", "ALGAS", "COPIA", "SALTO", "BOTAS", "LUZCA", "PODAR", "RUMOR", "CALOR", "TUNEL",
+  // "MOLDE", "PONER", "GOLPE", "CAJAS", "BURRO", "DADOS", "JALAR", "CASAS", "HUMOR", "CEDRO",
+  // "CARGO", "NACER", "GRUES", "ROJAS", "SARTA", "MOVER", "REZAR", "BURLA", "BRISA", "NUBES",
+  "SALSA" 
 ];
 
 const tecladoFila1 = "QWERTYUIOP".split("");
@@ -108,7 +109,7 @@ function inicializarJuego() {
 }
 
 function handleTeclaClick(tecla: string) {
-  if (input.value.length < 5) {
+  if (input.value.length < 5 && (!letrasUsadas[tecla] || letrasUsadas[tecla] !== 'gray')) {
     input.value += tecla;
   }
 }
@@ -125,7 +126,23 @@ function actualizarTecladoVirtual() {
   function crearTecla(letra: string): HTMLButtonElement {
     const tecla = document.createElement("button");
     tecla.textContent = letra;
-    tecla.className = "p-1 bg-gray-200 rounded hover:bg-gray-300 text-base font-semibold w-full h-8 text-black";
+    
+    let className = "p-1 bg-gray-200 rounded hover:bg-gray-300 text-base font-semibold w-full h-8 text-black";
+    if (letrasUsadas[letra]) {
+      switch (letrasUsadas[letra]) {
+        case 'green':
+          className = "p-1 bg-green-500 rounded text-white font-semibold w-full h-8";
+          break;
+        case 'yellow':
+          className = "p-1 bg-yellow-500 rounded text-white font-semibold w-full h-8";
+          break;
+        case 'gray':
+          className = "p-1 bg-gray-400 rounded text-white font-semibold w-full h-8 opacity-50 cursor-not-allowed";
+          break;
+      }
+    }
+    
+    tecla.className = className;
     tecla.addEventListener("click", () => handleTeclaClick(letra));
     return tecla;
   }
@@ -165,46 +182,55 @@ button.addEventListener("click", () => {
 
   const filaActual = document.getElementById(`oportunid${intentos + 1}`)!;
   const cuadrados = filaActual.children;
-  const letrasEncontradas: Record<string, number> = {};
+  
+  // Objeto para rastrear las ocurrencias disponibles de cada letra
+  const ocurrenciasDisponibles: Record<string, number> = {};
+  for (let i = 0; i < palabraDelDia.length; i++) {
+    const letra = palabraDelDia[i];
+    ocurrenciasDisponibles[letra] = (ocurrenciasDisponibles[letra] || 0) + 1;
+  }
 
   // Primera pasada: marcar las letras correctas (verdes)
+  const posicionesCorrectas: boolean[] = new Array(5).fill(false);
   for (let i = 0; i < palabra.length; i++) {
     const letra = palabra[i];
+    const cuadrado = cuadrados[i] as HTMLElement;
+    cuadrado.textContent = letra;
+
     if (letra === palabraDelDia[i]) {
-      letrasEncontradas[letra] = (letrasEncontradas[letra] || 0) + 1;
+      posicionesCorrectas[i] = true;
+      ocurrenciasDisponibles[letra]--;
+      letrasUsadas[letra] = 'green';
+      cuadrado.classList.remove("bg-white", "bg-gray-800");
+      cuadrado.classList.add("bg-green-500", "text-white");
     }
   }
 
   // Segunda pasada: marcar el resto de letras
   for (let i = 0; i < palabra.length; i++) {
-    const cuadrado = cuadrados[i] as HTMLElement;
+    if (posicionesCorrectas[i]) continue;
+
     const letra = palabra[i];
-    cuadrado.textContent = letra;
+    const cuadrado = cuadrados[i] as HTMLElement;
 
-    if (letra === palabraDelDia[i]) {
+    if (ocurrenciasDisponibles[letra] > 0) {
+      ocurrenciasDisponibles[letra]--;
       cuadrado.classList.remove("bg-white", "bg-gray-800");
-      cuadrado.classList.add("bg-green-500", "text-white");
+      cuadrado.classList.add("bg-blue-500", "text-white");
+      if (!letrasUsadas[letra] || letrasUsadas[letra] === 'gray') {
+        letrasUsadas[letra] = 'yellow';
+      }
     } else {
-      const ocurrenciasEnPalabraDelDia = contarOcurrencias(palabraDelDia, letra);
-      const ocurrenciasEncontradas = letrasEncontradas[letra] || 0;
-
-      if (palabraDelDia.includes(letra)) {
-        if (ocurrenciasEnPalabraDelDia > 1) {
-          cuadrado.classList.remove("bg-white", "bg-gray-800");
-          cuadrado.classList.add("bg-blue-500", "text-white");
-        } else if (ocurrenciasEncontradas < ocurrenciasEnPalabraDelDia) {
-          cuadrado.classList.remove("bg-white", "bg-gray-800");
-          cuadrado.classList.add("bg-yellow-500", "text-white");
-        } else {
-          cuadrado.classList.remove("bg-white", "bg-gray-800");
-          cuadrado.classList.add("bg-gray-400", "text-white");
-        }
-      } else {
-        cuadrado.classList.remove("bg-white", "bg-gray-800");
-        cuadrado.classList.add("bg-gray-400", "text-white");
+      cuadrado.classList.remove("bg-white", "bg-gray-800");
+      cuadrado.classList.add("bg-gray-400", "text-white");
+      if (!letrasUsadas[letra] || letrasUsadas[letra] !== 'green') {
+        letrasUsadas[letra] = 'gray';
       }
     }
   }
+
+  // Actualizar el teclado virtual con los nuevos colores
+  actualizarTecladoVirtual();
 
   if (palabra === palabraDelDia) {
     resultado.textContent = "¡Felicidades! Has adivinado la palabra.";
@@ -241,6 +267,11 @@ document.addEventListener("keydown", (event) => {
   } else if (event.key === "Backspace") {
     event.preventDefault();
     handleDelete();
+  } else if (/^[a-zA-Z]$/.test(event.key)) {
+    const letra = event.key.toUpperCase();
+    if (!letrasUsadas[letra] || letrasUsadas[letra] !== 'gray') {
+      handleTeclaClick(letra);
+    }
   }
 });
 

@@ -6,84 +6,181 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Palabra del Día</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   </head>
   <body class="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 text-gray-900 transition-colors duration-300">
-    <div id="app" class="text-center p-2">
-      <h1 class="text-3xl font-bold mb-2 transition-colors duration-300">La Palabra del Día</h1>
-      
-      <div id="palabradia" class="flex gap-2 justify-center mb-2">
-        <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300">?</div>
-        <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300">?</div>
-        <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300">?</div>
-        <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300">?</div>
-        <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300">?</div>
-      </div>
-      
-      <div id="oportunidades" class="flex flex-col gap-1 items-center mb-2">
-        <div id="oportunid1" class="flex gap-2">
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+    <div id="main-container" class="flex justify-around p-2">
+      <div id="app">
+        <h1 class="text-3xl text-center font-bold mb-2 transition-colors duration-300">La Palabra del Día</h1>
+        
+        <div id="palabradia" class="flex gap-2 justify-center mb-2">
+          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300">?</div>
+          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300">?</div>
+          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300">?</div>
+          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300">?</div>
+          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300">?</div>
         </div>
-        <div id="oportunid2" class="flex gap-2">
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+        
+        <div id="oportunidades" class="flex flex-col gap-1 items-center mb-2">
+          <div id="oportunid1" class="flex gap-2">
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+          </div>
+          <div id="oportunid2" class="flex gap-2">
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+          </div>
+          <div id="oportunid3" class="flex gap-2">
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+          </div>
+          <div id="oportunid4" class="flex gap-2">
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+          </div>
+          <div id="oportunid5" class="flex gap-2">
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+          </div>
+          <div id="oportunid6" class="flex gap-2">
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+          </div>
         </div>
-        <div id="oportunid3" class="flex gap-2">
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+  
+        <div class="flex justify-center mt-1">
+          <input
+            id="entrada"
+            maxlength="5"
+            placeholder="Escribe tu palabra"
+            class="p-1 text-center border border-gray-400 rounded w-40 text-black"
+          >
+        </div>  
+        <div class="flex gap-2 justify-center mt-1">
+          <button id="comprobar" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-400">Comprobar</button>
+          <button id="reiniciar" class="p-2 bg-green-500 text-white rounded hover:bg-green-400">Nueva Palabra</button>
+          <button id="modo-tema" class="p-2 bg-gray-500 text-white rounded hover:bg-gray-400">Modo Oscuro</button>
+          <button id="Login" class="p-2 bg-red-500 text-white rounded hover:bg-red-400">Login</button>
         </div>
-        <div id="oportunid4" class="flex gap-2">
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
+        
+        <div id="teclado" class="mt-0.5 flex flex-col gap-1 max-w-2xl mx-auto">
+          <div id="fila1" class="grid grid-cols-10 gap-1"></div>
+          <div id="fila2" class="grid grid-cols-10 gap-1"></div>
+          <div id="fila3" class="grid grid-cols-10 gap-1"></div>
         </div>
-        <div id="oportunid5" class="flex gap-2">
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-        </div>
-        <div id="oportunid6" class="flex gap-2">
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-          <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300"></div>
-        </div>
+        
+        <p id="resultado" class="mt-1 text-center text-red-500 h-6"></p>
+
       </div>
 
-      <input id="entrada" maxlength="5" placeholder="Escribe tu palabra" class="mt-1 p-1 border border-gray-400 rounded w-40 text-center text-black">
+      <div class="w-80">
+        <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Estadísticas</h2>
+            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+              <span class="text-white font-bold">8</span>
+            </div>
+          </div>
+          
+          <div class="space-y-6">
+            <div class="bg-gray-50 rounded-xl p-4">
+              <p class="text-lg font-semibold text-gray-800 mb-1">Jugador</p>
+              <p class="text-gray-600">Juanito</p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-green-50 rounded-xl p-4 text-center">
+                <p class="text-sm text-green-600 font-medium">Victorias</p>
+                <p class="text-2xl font-bold text-green-700">5</p>
+              </div>
+              <div class="bg-red-50 rounded-xl p-4 text-center">
+                <p class="text-sm text-red-600 font-medium">Derrotas</p>
+                <p class="text-2xl font-bold text-red-700">3</p>
+              </div>
+            </div>
 
-      <div class="flex gap-2 justify-center mt-1">
-        <button id="comprobar" class="p-2 bg-blue-500 text-white rounded hover:bg-blue-400">Comprobar</button>
-        <button id="reiniciar" class="p-2 bg-green-500 text-white rounded hover:bg-green-400">Nueva Palabra</button>
-        <button id="modo-tema" class="p-2 bg-gray-500 text-white rounded hover:bg-gray-400">Modo Oscuro</button>
-        <button id="Login" class="p-2 bg-red-500 text-white rounded hover:bg-red-400">Login</button>
-      </div>
-
-      <p id="resultado" class="mt-1 text-red-500 h-6"></p>
-      
-      <div id="teclado" class="mt-0.5 flex flex-col gap-1 max-w-2xl mx-auto">
-        <div id="fila1" class="grid grid-cols-10 gap-1"></div>
-        <div id="fila2" class="grid grid-cols-10 gap-1"></div>
-        <div id="fila3" class="grid grid-cols-10 gap-1"></div>
+            <div class="bg-gray-50 rounded-xl p-4">
+              <h3 class="text-lg font-semibold text-gray-800 mb-3">Aciertos por intento</h3>
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">Intento 1</span>
+                  <div class="flex items-center">
+                    <div class="w-24 bg-blue-100 rounded-full h-2.5">
+                      <div class="bg-blue-500 h-2.5 rounded-full" style="width: 20%"></div>
+                    </div>
+                    <span class="ml-2 text-sm text-gray-600">1</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">Intento 2</span>
+                  <div class="flex items-center">
+                    <div class="w-24 bg-blue-100 rounded-full h-2.5">
+                      <div class="bg-blue-500 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <span class="ml-2 text-sm text-gray-600">0</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">Intento 3</span>
+                  <div class="flex items-center">
+                    <div class="w-24 bg-blue-100 rounded-full h-2.5">
+                      <div class="bg-blue-500 h-2.5 rounded-full" style="width: 40%"></div>
+                    </div>
+                    <span class="ml-2 text-sm text-gray-600">2</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">Intento 4</span>
+                  <div class="flex items-center">
+                    <div class="w-24 bg-blue-100 rounded-full h-2.5">
+                      <div class="bg-blue-500 h-2.5 rounded-full" style="width: 20%"></div>
+                    </div>
+                    <span class="ml-2 text-sm text-gray-600">1</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">Intento 5</span>
+                  <div class="flex items-center">
+                    <div class="w-24 bg-blue-100 rounded-full h-2.5">
+                      <div class="bg-blue-500 h-2.5 rounded-full" style="width: 20%"></div>
+                    </div>
+                    <span class="ml-2 text-sm text-gray-600">1</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">Intento 6</span>
+                  <div class="flex items-center">
+                    <div class="w-24 bg-blue-100 rounded-full h-2.5">
+                      <div class="bg-blue-500 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <span class="ml-2 text-sm text-gray-600">0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
+    
     <script type="module" src="/src/game.ts"></script>
   </body>
 </html>

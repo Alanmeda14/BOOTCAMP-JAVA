@@ -59,7 +59,7 @@ interface Usuario {
   window.addEventListener('load', () => {
     const usuarioGuardado = localStorage.getItem('wordleUsuario');
     if (usuarioGuardado) {
-      window.location.href = '/';
+      // window.location.href = '/'; 
     }
   });
 
