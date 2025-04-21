@@ -1,4 +1,6 @@
-// Constantes para elementos del DOM
+import { actualizarEstadisticas, cargarEstadisticas } from './stats';
+import curiosidades from './curiosidades';
+
 const input = document.getElementById("entrada") as HTMLInputElement;
 const button = document.getElementById("comprobar")!;
 const resultado = document.getElementById("resultado")!;
@@ -9,10 +11,14 @@ const reiniciarBtn = document.getElementById("reiniciar")!;
 const modoTemaBtn = document.getElementById("modo-tema")!;
 const loginBtn = document.getElementById("Login")!;
 
-// Verificar si el usuario está logueado
+// Cargar usuario y estadísticas al inicio
 const usuarioGuardado = localStorage.getItem('wordleUsuario');
 if (!usuarioGuardado) {
   window.location.href = '/index.html';
+} else {
+  const usuario = JSON.parse(usuarioGuardado);
+  const stats = cargarEstadisticas(usuario.username);
+  actualizarInterfazEstadisticas(stats, usuario.username);
 }
 
 let intentos = 0;
@@ -20,17 +26,11 @@ let palabraDelDia = "";
 let letrasUsadas: Record<string, string> = {};
 
 const palabras = [
-  // "COLLA", "MANGO", "TENER", "SUAVE", "LLAVE", "GRITO", "CAMPO", "LUCIR", "PLANO", "NUBES",
-  // "COSTA", "BOLSA", "CIELO", "RUEDA", "BANDA", "MAREA", "JUEGO", "RAMAS", "SALIR", "DULCE",
-  // "BARRO", "TAZAS", "COPAS", "CRUDO", "LUNAR", "PEINE", "GATOS", "JAULA", "TAPAR", "SABER",
-  // "HONGO", "VELAS", "RATON", "NORTE", "CANTO", "SOLAR", "RIEGO", "CURVA", "TIBIO", "PULSO",
-  // "MENTA", "LOCHA", "VISTA", "SACAR", "RODEO", "HORNO", "FUEGO", "ALMAS", "SUELO", "LIGAR",
-  // "MONTE", "BOLSO", "PLUMA", "REINA", "LIMON", "TENIS", "PANAL", "CLARO", "FRUTA", "DUROS",
-  // "NIDOS", "PISOS", "SABIO", "TOCAR", "BOLAS", "TOMAR", "TOROS", "SELVA", "SALSA", "CORAL",
-  // "TARTA", "ALGAS", "COPIA", "SALTO", "BOTAS", "LUZCA", "PODAR", "RUMOR", "CALOR", "TUNEL",
-  // "MOLDE", "PONER", "GOLPE", "CAJAS", "BURRO", "DADOS", "JALAR", "CASAS", "HUMOR", "CEDRO",
-  // "CARGO", "NACER", "GRUES", "ROJAS", "SARTA", "MOVER", "REZAR", "BURLA", "BRISA", "NUBES",
-  "SALSA" 
+  "COLLA", "MANGO", "TENER", "SUAVE", "LLAVE", "GRITO", "CAMPO", "LUCIR", "PLANO", "NUBES",
+  "COSTA", "BOLSA", "CIELO", "RUEDA", "BANDA", "MAREA", "JUEGO", "RAMAS", "SALIR", "DULCE",
+  "BARRO", "TAZAS", "COPAS", "CRUDO", "LUNAR", "PEINE", "GATOS", "JAULA", "TAPAR", "SABER",
+  "HONGO", "VELAS", "RATON", "NORTE", "CANTO", "SOLAR", "RIEGO", "CURVA", "TIBIO", "PULSO",
+  "MENTA", "LOCHA", "VISTA", "SACAR", "RODEO", "HORNO", "FUEGO", "ALMAS", "SUELO", "LIGAR"
 ];
 
 const tecladoFila1 = "QWERTYUIOP".split("");
@@ -43,7 +43,7 @@ function contarOcurrencias(palabra: string, letra: string): number {
 
 function cambiarModo() {
   const body = document.body;
-  const cuadrados = document.querySelectorAll(".w-12");
+  const cuadrados = document.querySelectorAll(".w-16"); // Actualizado para coincidir con el nuevo tamaño
 
   if (body.classList.contains("from-blue-50")) {
     body.classList.remove("from-blue-50", "via-white", "to-green-50", "text-gray-900");
@@ -94,7 +94,7 @@ function inicializarJuego() {
     for (let j = 0; j < cuadrados.length; j++) {
       const cuadrado = cuadrados[j] as HTMLElement;
       cuadrado.textContent = "";
-      cuadrado.className = "w-12 h-12 flex items-center justify-center border-2 border-gray-400 text-2xl font-bold bg-white transition-colors duration-300";
+      cuadrado.className = "w-16 h-16 flex items-center justify-center border-2 border-gray-400 text-3xl font-bold bg-white transition-colors duration-300";
     }
   }
 
@@ -106,6 +106,14 @@ function inicializarJuego() {
   }
 
   actualizarTecladoVirtual();
+  
+  // Recargamos las estadísticas del usuario
+  const usuarioGuardado = localStorage.getItem('wordleUsuario');
+  if (usuarioGuardado) {
+    const usuario = JSON.parse(usuarioGuardado);
+    const stats = cargarEstadisticas(usuario.username);
+    actualizarInterfazEstadisticas(stats, usuario.username);
+  }
 }
 
 function handleTeclaClick(tecla: string) {
@@ -127,17 +135,17 @@ function actualizarTecladoVirtual() {
     const tecla = document.createElement("button");
     tecla.textContent = letra;
     
-    let className = "p-1 bg-gray-200 rounded hover:bg-gray-300 text-base font-semibold w-full h-8 text-black";
+    let className = "p-2 bg-gray-200 rounded hover:bg-gray-300 text-lg font-semibold w-full h-10 text-black";
     if (letrasUsadas[letra]) {
       switch (letrasUsadas[letra]) {
         case 'green':
-          className = "p-1 bg-green-500 rounded text-white font-semibold w-full h-8";
+          className = "p-2 bg-green-500 rounded text-white font-semibold w-full h-10";
           break;
         case 'yellow':
-          className = "p-1 bg-yellow-500 rounded text-white font-semibold w-full h-8";
+          className = "p-2 bg-yellow-500 rounded text-white font-semibold w-full h-10";
           break;
         case 'gray':
-          className = "p-1 bg-gray-400 rounded text-white font-semibold w-full h-8 opacity-50 cursor-not-allowed";
+          className = "p-2 bg-gray-400 rounded text-white font-semibold w-full h-10 opacity-50 cursor-not-allowed";
           break;
       }
     }
@@ -158,7 +166,7 @@ function actualizarTecladoVirtual() {
 
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "⌫";
-  deleteBtn.className = "p-1 bg-red-300 rounded hover:bg-red-400 text-base font-semibold w-full h-8 text-black";
+  deleteBtn.className = "p-2 bg-red-300 rounded hover:bg-red-400 text-lg font-semibold w-full h-10 text-black";
   deleteBtn.addEventListener("click", handleDelete);
   fila3.appendChild(deleteBtn);
 
@@ -183,14 +191,11 @@ button.addEventListener("click", () => {
   const filaActual = document.getElementById(`oportunid${intentos + 1}`)!;
   const cuadrados = filaActual.children;
   
-  // Objeto para rastrear las ocurrencias disponibles de cada letra
   const ocurrenciasDisponibles: Record<string, number> = {};
-  for (let i = 0; i < palabraDelDia.length; i++) {
-    const letra = palabraDelDia[i];
-    ocurrenciasDisponibles[letra] = (ocurrenciasDisponibles[letra] || 0) + 1;
+  for (const letra of palabraDelDia) {
+    ocurrenciasDisponibles[letra] = contarOcurrencias(palabraDelDia, letra);
   }
 
-  // Primera pasada: marcar las letras correctas (verdes)
   const posicionesCorrectas: boolean[] = new Array(5).fill(false);
   for (let i = 0; i < palabra.length; i++) {
     const letra = palabra[i];
@@ -206,7 +211,6 @@ button.addEventListener("click", () => {
     }
   }
 
-  // Segunda pasada: marcar el resto de letras
   for (let i = 0; i < palabra.length; i++) {
     if (posicionesCorrectas[i]) continue;
 
@@ -216,7 +220,7 @@ button.addEventListener("click", () => {
     if (ocurrenciasDisponibles[letra] > 0) {
       ocurrenciasDisponibles[letra]--;
       cuadrado.classList.remove("bg-white", "bg-gray-800");
-      cuadrado.classList.add("bg-blue-500", "text-white");
+      cuadrado.classList.add("bg-yellow-500", "text-white"); // Cambiado de blue a yellow para seguir el estándar de Wordle
       if (!letrasUsadas[letra] || letrasUsadas[letra] === 'gray') {
         letrasUsadas[letra] = 'yellow';
       }
@@ -229,7 +233,6 @@ button.addEventListener("click", () => {
     }
   }
 
-  // Actualizar el teclado virtual con los nuevos colores
   actualizarTecladoVirtual();
 
   if (palabra === palabraDelDia) {
@@ -237,6 +240,8 @@ button.addEventListener("click", () => {
     resultado.classList.remove("text-red-500");
     resultado.classList.add("text-green-500");
     mostrarPalabraDelDia();
+    mostrarResultado(palabra, true);
+    actualizarEstadisticas(true, intentos + 1);
   }
 
   intentos++;
@@ -245,6 +250,8 @@ button.addEventListener("click", () => {
   if (intentos === 6 && palabra !== palabraDelDia) {
     resultado.textContent = `Agotaste tus intentos. La palabra era: ${palabraDelDia}`;
     mostrarPalabraDelDia();
+    mostrarResultado(palabraDelDia, false);
+    actualizarEstadisticas(false, 6);
   }
 });
 
@@ -253,6 +260,38 @@ function mostrarPalabraDelDia() {
   const cuadrados = filaPalabraDia.children;
   for (let i = 0; i < palabraDelDia.length; i++) {
     cuadrados[i].textContent = palabraDelDia[i];
+  }
+}
+
+function actualizarInterfazEstadisticas(stats: any, nombre: string) {
+  // Actualizar nombre del jugador
+  const nombreJugador = document.querySelector('.text-gray-600') as HTMLElement;
+  if (nombreJugador) nombreJugador.textContent = nombre;
+
+  // Actualizar total de partidas
+  const totalPartidas = document.querySelector('.text-white.font-bold') as HTMLElement;
+  if (totalPartidas) totalPartidas.textContent = stats.partidasJugadas.toString();
+
+  // Actualizar victorias y derrotas
+  const victorias = document.querySelector('.text-green-700') as HTMLElement;
+  const derrotas = document.querySelector('.text-red-700') as HTMLElement;
+  if (victorias) victorias.textContent = stats.victorias.toString();
+  if (derrotas) derrotas.textContent = stats.derrotas.toString();
+
+  // Actualizar barras de progreso
+  const totalVictorias = stats.victorias;
+  
+  for (let i = 1; i <= 6; i++) {
+    const intentoKey = `intento${i}`;
+    const barra = document.querySelector(`#${intentoKey}-barra`) as HTMLElement;
+    const numero = document.querySelector(`#${intentoKey}-numero`) as HTMLElement;
+    
+    if (barra && numero) {
+      const valor = stats[intentoKey];
+      const porcentaje = totalVictorias > 0 ? (valor / totalVictorias) * 100 : 0;
+      barra.style.width = `${porcentaje}%`;
+      numero.textContent = valor.toString();
+    }
   }
 }
 
@@ -275,10 +314,36 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-// Event listeners
+function mostrarResultado(palabra: string, acertado: boolean) {
+  const contenedor = document.getElementById("resultadoFinal")!;
+  const mensaje = document.getElementById("mensajeFinal")!;
+  const curiosidad = document.getElementById("curiosidadFinal")!;
+  const panel = document.getElementById("contenedorResultado")!;
+
+  mensaje.textContent = acertado ? "🎉 ¡Has acertado!" : "❌ ¡Se acabaron los intentos!";
+  curiosidad.textContent = curiosidades[palabra.toUpperCase()] || "No hay curiosidad para esta palabra todavía.";
+
+  contenedor.classList.remove("hidden");
+  panel.classList.remove("animate__fadeOut");
+  panel.classList.add(acertado ? "animate__bounceIn" : "animate__shakeX");
+}
+
+function cerrarResultado() {
+  const contenedor = document.getElementById("resultadoFinal")!;
+  const panel = document.getElementById("contenedorResultado")!;
+
+  panel.classList.remove("animate__bounceIn", "animate__shakeX");
+  panel.classList.add("animate__fadeOut");
+
+  setTimeout(() => {
+    contenedor.classList.add("hidden");
+  }, 500);
+}
+
 inicializarJuego();
 modoTemaBtn.addEventListener("click", cambiarModo);
 reiniciarBtn.addEventListener("click", inicializarJuego);
 loginBtn.addEventListener("click", () => {
+  localStorage.removeItem('wordleUsuario');
   window.location.href = '/index.html';
 });
