@@ -11,11 +11,19 @@ const reiniciarBtn = document.getElementById("reiniciar")!;
 const modoTemaBtn = document.getElementById("modo-tema")!;
 const loginBtn = document.getElementById("Login")!;
 
-// Cargar usuario y estadísticas al inicio
+// Elementos del modal
+const modalResultado = document.getElementById("resultadoFinal")!;
+const mensajeFinal = document.getElementById("mensajeFinal")!;
+const curiosidadFinal = document.getElementById("curiosidadFinal")!;
+const cerrarModalBtn = document.getElementById("cerrarModal")!;
+const nuevaPartidaBtn = document.getElementById("nuevaPartida")!;
+const contenedorResultado = document.getElementById("contenedorResultado")!;
+
+// Verificar usuario y redirigir si es necesario
 const usuarioGuardado = localStorage.getItem('wordleUsuario');
-if (!usuarioGuardado) {
-  window.location.href = '/index.html';
-} else {
+if (!usuarioGuardado && window.location.pathname.includes('game.html')) {
+  window.location.replace('/index.html');
+} else if (usuarioGuardado) {
   const usuario = JSON.parse(usuarioGuardado);
   const stats = cargarEstadisticas(usuario.username);
   actualizarInterfazEstadisticas(stats, usuario.username);
@@ -43,7 +51,7 @@ function contarOcurrencias(palabra: string, letra: string): number {
 
 function cambiarModo() {
   const body = document.body;
-  const cuadrados = document.querySelectorAll(".w-16"); // Actualizado para coincidir con el nuevo tamaño
+  const cuadrados = document.querySelectorAll(".w-16");
 
   if (body.classList.contains("from-blue-50")) {
     body.classList.remove("from-blue-50", "via-white", "to-green-50", "text-gray-900");
@@ -220,7 +228,7 @@ button.addEventListener("click", () => {
     if (ocurrenciasDisponibles[letra] > 0) {
       ocurrenciasDisponibles[letra]--;
       cuadrado.classList.remove("bg-white", "bg-gray-800");
-      cuadrado.classList.add("bg-yellow-500", "text-white"); // Cambiado de blue a yellow para seguir el estándar de Wordle
+      cuadrado.classList.add("bg-yellow-500", "text-white");
       if (!letrasUsadas[letra] || letrasUsadas[letra] === 'gray') {
         letrasUsadas[letra] = 'yellow';
       }
@@ -240,7 +248,7 @@ button.addEventListener("click", () => {
     resultado.classList.remove("text-red-500");
     resultado.classList.add("text-green-500");
     mostrarPalabraDelDia();
-    mostrarResultado(palabra, true);
+    mostrarResultado(palabraDelDia, true);
     actualizarEstadisticas(true, intentos + 1);
   }
 
@@ -315,35 +323,51 @@ document.addEventListener("keydown", (event) => {
 });
 
 function mostrarResultado(palabra: string, acertado: boolean) {
-  const contenedor = document.getElementById("resultadoFinal")!;
-  const mensaje = document.getElementById("mensajeFinal")!;
-  const curiosidad = document.getElementById("curiosidadFinal")!;
-  const panel = document.getElementById("contenedorResultado")!;
-
-  mensaje.textContent = acertado ? "🎉 ¡Has acertado!" : "❌ ¡Se acabaron los intentos!";
-  curiosidad.textContent = curiosidades[palabra.toUpperCase()] || "No hay curiosidad para esta palabra todavía.";
-
-  contenedor.classList.remove("hidden");
-  panel.classList.remove("animate__fadeOut");
-  panel.classList.add(acertado ? "animate__bounceIn" : "animate__shakeX");
+  // Si no existe una curiosidad para esta palabra, crear una genérica
+  const curiosidadTexto = curiosidades[palabra] || 
+    `La palabra "${palabra}" tiene ${palabra.length} letras y es muy común en el idioma español.`;
+  
+  mensajeFinal.textContent = acertado ? "🎉 ¡Has acertado!" : "❌ ¡Se acabaron los intentos!";
+  curiosidadFinal.textContent = curiosidadTexto;
+  
+  // Asegurarse que el modal sea visible
+  modalResultado.classList.remove("hidden");
+  contenedorResultado.classList.remove("animate__fadeOut");
+  contenedorResultado.classList.add("animate__animated"); // Asegurar que tiene la clase base de animate.css
+  contenedorResultado.classList.add(acertado ? "animate__bounceIn" : "animate__shakeX");
+  
+  // Forzar un reflow para asegurar que las animaciones se muestren
+  void modalResultado.offsetWidth;
 }
 
 function cerrarResultado() {
-  const contenedor = document.getElementById("resultadoFinal")!;
-  const panel = document.getElementById("contenedorResultado")!;
-
-  panel.classList.remove("animate__bounceIn", "animate__shakeX");
-  panel.classList.add("animate__fadeOut");
-
+  contenedorResultado.classList.remove("animate__bounceIn", "animate__shakeX");
+  contenedorResultado.classList.add("animate__fadeOut");
+  
   setTimeout(() => {
-    contenedor.classList.add("hidden");
+    modalResultado.classList.add("hidden");
   }, 500);
 }
 
+// Event listeners para el modal
+cerrarModalBtn.addEventListener("click", cerrarResultado);
+nuevaPartidaBtn.addEventListener("click", () => {
+  cerrarResultado();
+  inicializarJuego();
+});
+
+// Event listeners principales
 inicializarJuego();
 modoTemaBtn.addEventListener("click", cambiarModo);
 reiniciarBtn.addEventListener("click", inicializarJuego);
 loginBtn.addEventListener("click", () => {
   localStorage.removeItem('wordleUsuario');
   window.location.href = '/index.html';
+});
+
+// Event listener para cerrar el modal haciendo clic fuera
+modalResultado.addEventListener("click", (e) => {
+  if (e.target === modalResultado) {
+    cerrarResultado();
+  }
 });

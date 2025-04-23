@@ -7,10 +7,20 @@ interface Usuario {
 const loginForm = document.getElementById('login-form') as HTMLFormElement;
 const usernameInput = document.getElementById('username') as HTMLInputElement;
 const errorMsg = document.getElementById('error-msg') as HTMLDivElement;
+const loginBtn = document.getElementById('login-btn') as HTMLButtonElement;
 
 loginForm?.addEventListener('submit', (event) => {
   event.preventDefault();
-  
+  iniciarSesion();
+});
+
+// También permitir inicio de sesión al hacer clic en el botón
+loginBtn?.addEventListener('click', (event) => {
+  event.preventDefault();
+  iniciarSesion();
+});
+
+function iniciarSesion() {
   const username = usernameInput.value.trim();
   
   if (username.length < 3) {
@@ -36,7 +46,7 @@ loginForm?.addEventListener('submit', (event) => {
   
   localStorage.setItem('wordleUsuario', JSON.stringify(usuario));
   window.location.href = '/game.html';
-});
+}
 
 function mostrarError(mensaje: string): void {
   if (errorMsg) {
