@@ -40,16 +40,26 @@
                     Comenzar a Jugar
                 </button>
             </form>
+            <div class="space-y-2 mt-6">
+                <div class="game-option cursor-pointer p-3 rounded-md bg-blue-50 hover:bg-blue-100 transition-colors duration-200" data-game="wordle">
+                    <span class="text-blue-700 font-medium">Wordle</span>
+                </div>
+                <div class="game-option cursor-pointer p-3 rounded-md bg-blue-50 hover:bg-blue-100 transition-colors duration-200" data-game="sopa">
+                    <span class="text-blue-700 font-medium">Sopa de Letras</span>
+                </div>
+                <div class="game-option cursor-pointer p-3 rounded-md bg-blue-50 hover:bg-blue-100 transition-colors duration-200" data-game="frase">
+                    <span class="text-blue-700 font-medium">Frase del Día</span>
+                </div>
+                <div class="game-option cursor-pointer p-3 rounded-md bg-blue-50 hover:bg-blue-100 transition-colors duration-200" data-game="sorpresa">
+                    <span class="text-blue-700 font-medium">Refrán del Día</span>
+                </div>
+            </div>
 
-            <div class="mt-8 text-center">
-                <p class="text-gray-600 text-sm">¿Cómo jugar?</p>
+            <div id="normas-container" class="mt-8 text-center" style="display: none;">
+                <p class="text-gray-600 text-sm" id="titulo-normas">¿Cómo jugar?</p>
                 <div class="mt-2 p-4 bg-blue-50 rounded-lg text-left">
-                    <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
-                        <li>Adivina la palabra de 5 letras</li>
-                        <li>Tienes 6 intentos</li>
-                        <li>Las letras en verde están en posición correcta</li>
-                        <li>Las letras en amarillo no están en la posición correcta</li>
-                        <li>Las letras en gris no están en la palabra</li>
+                    <ul id="normas-list" class="list-disc list-inside text-sm text-gray-700 space-y-2">
+                    
                     </ul>
                 </div>
             </div>
